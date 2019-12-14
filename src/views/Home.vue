@@ -1,18 +1,26 @@
-<template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+<template lang='pug'>
+#home
+  Jumbotron
+  Popular( title='Kategori A')
+    template(v-slot:card)
+      ProductCard
+      ProductCard
+      ProductCard
+      ProductCard
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue';
+import Popular from '@/components/ProductRow.vue';
+import Jumbotron from '@/components/Jumbotron.vue';
+import ProductCard from '@/components/widgets/ProductCard.vue';
 
 export default {
   name: 'home',
   components: {
-    HelloWorld,
+    Popular,
+    Jumbotron,
+    ProductCard,
   },
 };
 </script>
