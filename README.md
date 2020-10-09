@@ -1,1 +1,1 @@
-# Minepedia - Backend
+# Minepedia - Server
