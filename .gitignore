@@ -6,6 +6,7 @@
 *.db
 dist/
 src/generated
+prisma/migrations/
 
 # misc
 node_modules

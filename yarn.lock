@@ -590,6 +590,11 @@
   resolved "https://registry.yarnpkg.com/@prisma/cli/-/cli-2.7.0.tgz#af9fd31f24babc9828cc9ab6d8b8735729b320e7"
   integrity sha512-OCiTV6Xs9GHUk4iJGQeJizyUyrm7pnKCjoeulN+OXAdbfkLwNlRC+/H/8aOwcXx+Nej/QgXoix9CGcs+OYrdnA==
 
+"@prisma/cli@^2.8.1":
+  version "2.8.1"
+  resolved "https://registry.yarnpkg.com/@prisma/cli/-/cli-2.8.1.tgz#fdfeb56857f2fb08ec9769537279745749effcf7"
+  integrity sha512-mEGJplClGnXI5ki4R0Xq8nq62zcyu7Wzdhybege+cFPZFUbFj0petaPZl/tqta9o5neDyvpU/lDgOwef6mwySg==
+
 "@prisma/client@2.7.0":
   version "2.7.0"
   resolved "https://registry.yarnpkg.com/@prisma/client/-/client-2.7.0.tgz#fc7d4a3f7c5c8d865de74476a01cef606c02ba5e"
