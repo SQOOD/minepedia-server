@@ -1,0 +1,102 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider        = "prisma-client-js"
+  binaryTargets   = ["native", "linux-musl"]
+  previewFeatures = ["connectOrCreate", "transactionApi"]
+}
+
+model Product {
+  id            Int         @default(autoincrement()) @id
+  productId     String      @default("ID")
+  name          String
+  profile       Profile     @relation(references: [id], fields: [profileId])
+  profileId     String
+  unit          String      @default("Unit")
+  tkdn          Int         @default(0)
+  certificate   Certificate @default(SA)
+  category      Category
+  minPurchase   Int         @default(0)
+  description   String
+  createdAt     DateTime    @default(now())
+  priceRange    Json?
+  customizable  Boolean     @default(false)
+  details       Json?
+}
+
+model Profile {
+  id          String         @default(uuid()) @id
+  name        String
+  address     String
+  companyType CompanyType
+  phone       String      @default("NaN")
+  geolocation Json?
+  vendor      Vendor        @relation(references: id, fields: vendorId)
+  vendorId    Int
+  products    Product[]
+}
+
+model Vendor {
+  id        Int       @default(autoincrement()) @id
+  createdAt DateTime  @default(now())
+  email     String    @unique
+  password  String
+  npwp      String
+  profile   Profile?
+}
+
+model Admin { 
+  id        String @default(uuid()) @id
+  createdAt DateTime @default(now())
+  nik       String
+  password  String
+  role      Role @default(STAFF)
+}
+
+enum Certificate {
+  SA
+  SC
+  SI
+}
+
+enum CompanyType {
+  CV
+  PT
+  UD
+  Koperasi
+  Firma
+  Yayasan
+}
+
+enum Role {
+  ADMIN
+  MANAGER
+  STAFF
+}
+
+enum Category {
+  A
+  B
+  C
+  D
+  E
+  F
+  G 
+  H 
+  I 
+  J 
+  K 
+  L 
+  M 
+  N 
+  O 
+  P 
+  Q 
+  R 
+  S
+  T
+}
+
