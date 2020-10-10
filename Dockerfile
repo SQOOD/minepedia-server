@@ -12,4 +12,7 @@ COPY . .
 RUN yarn build \
   && apk del .build-deps
 
+EXPOSE 4000
+EXPOSE 5555
+
 CMD [ "yarn",  "start" ]
