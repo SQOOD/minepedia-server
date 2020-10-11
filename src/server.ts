@@ -15,7 +15,10 @@ export const server = new ApolloServer({
   tracing: isDev(),
   introspection: true,
   debug: isDev(),
-  cors: true,
+  cors: {
+    credentials: true,
+    origin: '*',
+  },
   // subscriptions: {
   //   onConnect: (_connectionParams, _websocket, connContext): SocketContext => {
   //     return {
