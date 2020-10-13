@@ -1,10 +1,9 @@
-import { stringArg, extendType } from '@nexus/schema'
+import { stringArg, mutationType } from '@nexus/schema'
 import { compare, hash } from 'bcrypt'
 import { generateAccessToken, handleError } from '../utils/helpers'
 import { errors } from '../utils/constants'
 
-export const user = extendType({
-  type: 'AuthPayloadVendor',
+export const user = mutationType({
   definition(t) {
     t.field('registerVendor', {
       type: 'AuthPayloadVendor',

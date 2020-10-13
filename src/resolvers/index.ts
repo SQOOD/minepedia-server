@@ -3,7 +3,7 @@ import AuthPayloadVendor from './AuthPayload'
 import * as Types from './types'
 
 export const resolvers = {
-  ...Auth,
+  Auth,
   AuthPayloadVendor,
-  Types
+  Types,
 }
