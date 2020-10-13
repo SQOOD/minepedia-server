@@ -4,7 +4,7 @@ import { generateAccessToken, handleError } from '../utils/helpers'
 import { errors } from '../utils/constants'
 
 export const user = extendType({
-  type: 'Mutation',
+  type: 'AuthPayloadVendor',
   definition(t) {
     t.field('registerVendor', {
       type: 'AuthPayloadVendor',
@@ -57,11 +57,11 @@ export const user = extendType({
 
         const passwordValid = await compare(password, vendor.password)
         if (!passwordValid) handleError(errors.invalidUser)
-    
+
         const accessToken = generateAccessToken(vendor.id)
 
         return {
-          token : accessToken,
+          token: accessToken,
           vendor,
         }
       },
