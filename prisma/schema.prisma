@@ -45,7 +45,7 @@ model Vendor {
   email     String    @unique
   password  String
   npwp      String
-  approved  Boolean
+  approved  Boolean   @default(false)
   profile   Profile?
 }
 
