@@ -1,4 +1,4 @@
-import { arg, extendType } from '@nexus/schema'
+import { arg, extendType, stringArg } from '@nexus/schema'
 import dotenv from 'dotenv'
 import { minioClient } from '../utils/constants'
 
@@ -10,15 +10,25 @@ export const file = extendType({
     t.field('uploadFile', {
       type: 'File',
       args: {
-        file: arg({ type: 'Upload' }),
+        files: arg({ type: 'Upload', list: true }),
+        productId: stringArg({ required: true }),
       },
-      resolve: async (_: any, { file }, {}: any) => {
-        const { createReadStream, filename, mimetype } = await file
+      resolve(_: any, { files, productId }, {}: any) {
+        let fileList: any = []
 
-        const uploadedFile = await uploadFile(createReadStream(), filename)
+        files.forEach(async (file: any) => {
+          const { createReadStream, filename, mimetype } = await file
+
+          if (mimetype == 'image/jpeg') {
+            const filepath = `${productId}/${filename}`
+            await uploadFile(createReadStream(), filepath)
+            fileList.push(filename)
+            console.log(filename)
+          }
+        })
+        console.log(fileList)
         return {
-          filename,
-          uri: uploadedFile,
+          filename: fileList,
         }
       },
     })
@@ -31,6 +41,5 @@ export const uploadFile = (createReadStream: any, filename: any) => {
     etag
   ) {
     if (err) return console.log(err)
-    console.log(etag)
   })
 }
