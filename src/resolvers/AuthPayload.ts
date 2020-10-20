@@ -1,4 +1,4 @@
-import { objectType } from '@nexus/schema';
+import { objectType } from '@nexus/schema'
 
 const AuthPayloadVendor = objectType({
   name: 'AuthPayloadVendor',
@@ -8,4 +8,12 @@ const AuthPayloadVendor = objectType({
   },
 })
 
-export default AuthPayloadVendor
+const AuthPayloadAdmin = objectType({
+  name: 'AuthPayloadAdmin',
+  definition(t) {
+    t.string('token')
+    t.field('admin', { type: 'Admin' })
+  },
+})
+
+export { AuthPayloadVendor, AuthPayloadAdmin }

@@ -10,10 +10,23 @@ export const handleError = (error: any) => {
 }
 
 export const generateAccessToken = (vendorId: number) => {
-
   const accessToken = sign(
     {
       vendorId,
+      type: tokens.access.name,
+      timestamp: Date.now(),
+    },
+    APP_SECRET,
+    {
+      expiresIn: tokens.access.expiry,
+    }
+  )
+  return accessToken
+}
+export const generateAccessAdmin = (adminId: string) => {
+  const accessToken = sign(
+    {
+      adminId,
       type: tokens.access.name,
       timestamp: Date.now(),
     },
@@ -43,7 +56,7 @@ export const createContext = (ctx: any): Context => {
     const verifiedToken = verify(token, APP_SECRET) as Token
 
     if (!verifiedToken.vendorId && verifiedToken.type !== tokens.access.name)
-    vendorId = -1
+      vendorId = -1
     else vendorId = verifiedToken.vendorId
   } catch (e) {
     vendorId = -1

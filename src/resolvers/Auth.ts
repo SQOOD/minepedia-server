@@ -1,9 +1,14 @@
-import { stringArg, mutationType } from '@nexus/schema'
+import { stringArg, extendType } from '@nexus/schema'
 import { compare, hash } from 'bcrypt'
-import { generateAccessToken, handleError } from '../utils/helpers'
+import {
+  generateAccessToken,
+  generateAccessAdmin,
+  handleError,
+} from '../utils/helpers'
 import { errors } from '../utils/constants'
 
-export const user = mutationType({
+export const user = extendType({
+  type: 'Mutation',
   definition(t) {
     t.field('registerVendor', {
       type: 'AuthPayloadVendor',
@@ -34,6 +39,65 @@ export const user = mutationType({
       },
     })
 
+    t.field('registerAdmin', {
+      type: 'AuthPayloadAdmin',
+      args: {
+        nik: stringArg({ required: true }),
+        password: stringArg({ required: true }),
+      },
+      async resolve(_parent, { nik, password }, ctx) {
+        try {
+          const hashedPassword = await hash(password, 10)
+          const admin = await ctx.prisma.admin.create({
+            data: {
+              nik,
+              password: hashedPassword,
+            },
+          })
+
+          const accessToken = generateAccessAdmin(admin.id)
+          return {
+            accessToken,
+            admin,
+          }
+        } catch (e) {
+          handleError(errors.userAlreadyExists)
+        }
+      },
+    })
+
+    t.field('loginAdmin', {
+      type: 'AuthPayloadAdmin',
+      args: {
+        nik: stringArg({ required: true }),
+        password: stringArg({ required: true }),
+      },
+      async resolve(_parent, { nik, password }, ctx) {
+        let admin = null
+        try {
+          admin = await ctx.prisma.admin.findOne({
+            where: {
+              nik,
+            },
+          })
+        } catch (e) {
+          handleError(errors.invalidUser)
+        }
+
+        if (!admin) handleError(errors.invalidUser)
+
+        const passwordValid = await compare(password, admin.password)
+        if (!passwordValid) handleError(errors.invalidUser)
+
+        const accessToken = generateAccessAdmin(admin.id)
+
+        return {
+          token: accessToken,
+          admin,
+        }
+      },
+    })
+
     t.field('loginVendor', {
       type: 'AuthPayloadVendor',
       args: {
@@ -56,6 +120,8 @@ export const user = mutationType({
 
         const passwordValid = await compare(password, vendor.password)
         if (!passwordValid) handleError(errors.invalidUser)
+
+        if (vendor.approved == false) handleError(errors.waitingForApproval)
 
         const accessToken = generateAccessToken(vendor.id)
 

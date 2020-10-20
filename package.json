@@ -25,10 +25,12 @@
     "bcrypt": "5.0.0",
     "bcryptjs": "^2.4.3",
     "dotenv": "^8.1.0",
+    "file-type": "^15.0.1",
     "graphql": "^15.3.0",
     "graphql-middleware": "^4.0.2",
     "graphql-shield": "7.3.6",
     "jsonwebtoken": "8.5.1",
+    "minio": "^7.0.16",
     "nexus-plugin-prisma": "^0.19.0"
   },
   "devDependencies": {
@@ -38,6 +40,7 @@
     "@types/eslint": "^7.2.0",
     "@types/jest": "^26.0.13",
     "@types/jsonwebtoken": "8.5.0",
+    "@types/minio": "^7.0.6",
     "@types/node": "^14.10.2",
     "@types/prettier": "^2.0.0",
     "@types/rimraf": "^3.0.0",
@@ -75,5 +78,9 @@
   "lint-staged": {
     "*.{js,ts}": "npm run lint",
     "*.{ts,js,json,md}": "prettier --write"
+  },
+  "resolutions": {
+    "fs-capacitor": "^6.2.0",
+    "graphql-upload": "^11.0.0"
   }
 }

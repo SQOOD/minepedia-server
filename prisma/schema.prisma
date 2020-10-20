@@ -52,7 +52,7 @@ model Vendor {
 model Admin { 
   id        String @default(uuid()) @id
   createdAt DateTime @default(now())
-  nik       String
+  nik       String @unique
   password  String
   role      Role @default(STAFF)
 }
