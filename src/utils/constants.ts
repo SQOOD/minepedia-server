@@ -23,7 +23,9 @@ export const minioClient = new Minio.Client({
   endPoint: process.env.MINIO_ENDPOINT
     ? process.env.MINIO_ENDPOINT
     : 'localhost',
-  port: parseInt(process.env.MINIO_PORT) ? process.env.MINIO_PORT : 9000,
+  port: parseInt(process.env.MINIO_PORT)
+    ? parseInt(process.env.MINIO_PORT)
+    : 9000,
   useSSL: process.env.MINIO_HTTPS ? true : false,
   accessKey: process.env.MINIO_ACCESS_KEY
     ? process.env.MINIO_ACCESS_KEY
