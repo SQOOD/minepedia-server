@@ -20,6 +20,9 @@ export const server = new ApolloServer({
     credentials: true,
     origin: '*',
   },
+  uploads: {
+    maxFiles: 6,
+  },
   // subscriptions: {
   //   onConnect: (_connectionParams, _websocket, connContext): SocketContext => {
   //     return {

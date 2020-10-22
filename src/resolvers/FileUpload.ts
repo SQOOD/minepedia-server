@@ -6,8 +6,6 @@ export const Upload = asNexusMethod(GraphQLUpload, 'upload')
 export const File = objectType({
   name: 'File',
   definition(t) {
-    t.list.field('filename', {
-      type: 'Upload',
-    })
+    t.list.string('files')
   },
 })
