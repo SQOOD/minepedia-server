@@ -8,7 +8,7 @@ export const tokens = {
   },
 }
 
-export const APP_SECRET = process.env.APP_SECRET
+export const APP_SECRET = process.env.MINEPEDIA_APPSECRET
 
 export const isDev = () => process.env.NODE_ENV === 'development'
 
@@ -20,9 +20,15 @@ export const errors = {
 }
 
 export const minioClient = new Minio.Client({
-  endPoint: process.env.MINIO_ENDPOINT,
-  port: parseInt(process.env.MINIO_PORT),
+  endPoint: process.env.MINIO_ENDPOINT
+    ? process.env.MINIO_ENDPOINT
+    : 'localhost',
+  port: parseInt(process.env.MINIO_PORT) ? process.env.MINIO_PORT : 9000,
   useSSL: process.env.MINIO_HTTPS ? true : false,
-  accessKey: process.env.MINIO_ACCESS_KEY,
-  secretKey: process.env.MINIO_SECRET_KEY,
+  accessKey: process.env.MINIO_ACCESS_KEY
+    ? process.env.MINIO_ACCESS_KEY
+    : 'changeme',
+  secretKey: process.env.MINIO_SECRET_KEY
+    ? process.env.MINIO_SECRET_KEY
+    : 'changemeAgain',
 })
