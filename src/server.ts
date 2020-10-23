@@ -12,7 +12,7 @@ export const server = new ApolloServer({
   schema: applyMiddleware(schema),
   // schema: applyMiddleware(schema, permissions),
   context: createContext,
-  playground: false,
+  playground: true,
   tracing: isDev(),
   introspection: true,
   debug: isDev(),
