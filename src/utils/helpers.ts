@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client'
 import { PubSub } from 'apollo-server'
 import { sign, verify } from 'jsonwebtoken'
-import { APP_SECRET, tokens } from './constants'
+import { MINEPEDIA_APP_SECRET, tokens } from './constants'
 import { Context, Token } from '../types'
 
 export const handleError = (error: any) => {
@@ -16,11 +16,12 @@ export const generateAccessToken = (vendorId: number) => {
       type: tokens.access.name,
       timestamp: Date.now(),
     },
-    APP_SECRET,
+    MINEPEDIA_APP_SECRET,
     {
       expiresIn: tokens.access.expiry,
     }
   )
+
   return accessToken
 }
 export const generateAccessAdmin = (adminId: string) => {
@@ -30,7 +31,7 @@ export const generateAccessAdmin = (adminId: string) => {
       type: tokens.access.name,
       timestamp: Date.now(),
     },
-    APP_SECRET,
+    MINEPEDIA_APP_SECRET,
     {
       expiresIn: tokens.access.expiry,
     }
@@ -53,7 +54,7 @@ export const createContext = (ctx: any): Context => {
       Authorization = ctx?.connection?.context?.Authorization
     }
     const token = Authorization.replace('Bearer ', '')
-    const verifiedToken = verify(token, APP_SECRET) as Token
+    const verifiedToken = verify(token, MINEPEDIA_APP_SECRET) as Token
 
     if (!verifiedToken.vendorId && verifiedToken.type !== tokens.access.name)
       vendorId = -1

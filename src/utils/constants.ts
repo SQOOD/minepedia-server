@@ -8,7 +8,7 @@ export const tokens = {
   },
 }
 
-export const APP_SECRET = process.env.MINEPEDIA_APPSECRET
+export const MINEPEDIA_APP_SECRET = process.env.MINEPEDIA_APP_SECRET
 
 export const isDev = () => process.env.NODE_ENV === 'development'
 

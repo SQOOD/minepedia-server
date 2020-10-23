@@ -17,8 +17,8 @@
         "value": "80"
       },
       {
-        "name": "APP_SECRET",
-        "value": env.APP_SECRET
+        "name": "MINEPEDIA_APP_SECRET",
+        "value": env.MINEPEDIA_APP_SECRET
       },
       {
         "name": "POSTGRESQL_URL",

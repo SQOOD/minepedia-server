@@ -61,6 +61,7 @@ export const user = extendType({
             admin,
           }
         } catch (e) {
+          console.log(e)
           handleError(errors.userAlreadyExists)
         }
       },
