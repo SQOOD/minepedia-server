@@ -21,6 +21,7 @@ model Product {
   category      Category
   hscode        String
   minPurchase   Int         @default(0)
+  country       String
   description   String
   createdAt     DateTime    @default(now())
   priceRange    Json?
