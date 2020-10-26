@@ -17,7 +17,7 @@ export const Product = objectType({
     t.model.minPurchase()
     t.model.description()
     t.model.createdAt()
-    t.model.priceRange()
+    t.model.price()
     t.model.customizable()
     t.model.details()
   },
