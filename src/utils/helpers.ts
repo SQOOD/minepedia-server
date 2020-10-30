@@ -9,10 +9,10 @@ export const handleError = (error: any) => {
   throw error
 }
 
-export const generateAccessToken = (vendorId: number) => {
+export const generateAccessToken = (vendorID: number) => {
   const accessToken = sign(
     {
-      vendorId,
+      vendorID,
       type: tokens.access.name,
       timestamp: Date.now(),
     },
@@ -24,10 +24,10 @@ export const generateAccessToken = (vendorId: number) => {
 
   return accessToken
 }
-export const generateAccessAdmin = (adminId: string) => {
+export const generateAccessAdmin = (adminID: string) => {
   const accessToken = sign(
     {
-      adminId,
+      adminID,
       type: tokens.access.name,
       timestamp: Date.now(),
     },
@@ -43,7 +43,7 @@ export const prisma = new PrismaClient()
 const pubsub = new PubSub()
 
 export const createContext = (ctx: any): Context => {
-  let vendorId: number
+  let vendorID: number
   try {
     let Authorization = ''
     try {
@@ -56,16 +56,16 @@ export const createContext = (ctx: any): Context => {
     const token = Authorization.replace('Bearer ', '')
     const verifiedToken = verify(token, MINEPEDIA_APP_SECRET) as Token
 
-    if (!verifiedToken.vendorId && verifiedToken.type !== tokens.access.name)
-      vendorId = -1
-    else vendorId = verifiedToken.vendorId
+    if (!verifiedToken.vendorID && verifiedToken.type !== tokens.access.name)
+      vendorID = -1
+    else vendorID = verifiedToken.vendorID
   } catch (e) {
-    vendorId = -1
+    vendorID = -1
   }
   return {
     ...ctx,
     prisma,
     pubsub,
-    vendorId,
+    vendorID,
   }
 }

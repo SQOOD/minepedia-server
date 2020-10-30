@@ -8,7 +8,7 @@ export interface Context {
   req: Request
   res: Response
   pubsub: PubSub
-  userId: number
+  userID: number
 }
 
 // export interface SocketContext {
@@ -18,7 +18,21 @@ export interface Context {
 // }
 
 export interface Token {
-  vendorId: number
+  vendorID: number
   type: string
   timestamp: number
+}
+
+export interface TokenAdmin {
+  adminID: number
+  type: string
+  timestamp: number
+}
+
+export interface Status {
+  approved: string
+  assignee?: string
+  suggested: string
+  note?: string
+  rejected?: boolean
 }

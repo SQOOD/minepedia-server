@@ -4,8 +4,8 @@ import {
   generateAccessToken,
   generateAccessAdmin,
   handleError,
-} from '../utils/helpers'
-import { errors } from '../utils/constants'
+} from '../../utils/helpers'
+import { errors } from '../../utils/constants'
 
 export const user = extendType({
   type: 'Mutation',
@@ -55,13 +55,14 @@ export const user = extendType({
             },
           })
 
+          console.log(admin)
+
           const accessToken = generateAccessAdmin(admin.id)
           return {
             accessToken,
             admin,
           }
         } catch (e) {
-          console.log(e)
           handleError(errors.userAlreadyExists)
         }
       },

@@ -1,5 +1,5 @@
 {
-  "name": "graphql-auth",
+  "name": "minepedia-server",
   "license": "MIT",
   "scripts": {
     "dev": "cross-env NODE_ENV=development tsnd --no-notify --respawn --transpile-only ./src",
@@ -19,8 +19,9 @@
     "studio": "yarn prisma studio"
   },
   "dependencies": {
-    "@nexus/schema": "^0.16.0",
-    "@prisma/client": "^2.9.0",
+    "@nexus/schema": "^0.17.0",
+    "@prisma/client": "^2.10.0",
+    "@types/jwt-decode": "^2.2.1",
     "apollo-server": "^2.13.0",
     "bcrypt": "5.0.0",
     "bcryptjs": "^2.4.3",
@@ -32,7 +33,7 @@
     "jsonwebtoken": "8.5.1",
     "jwt-decode": "^3.0.0",
     "minio": "^7.0.16",
-    "nexus-plugin-prisma": "^0.22.0",
+    "nexus-plugin-prisma": "^0.23.0",
     "typescript-base64-arraybuffer": "^0.1.0"
   },
   "devDependencies": {
@@ -47,7 +48,6 @@
     "@types/rimraf": "^3.0.0",
     "@typescript-eslint/eslint-plugin": "^4.0.1",
     "@typescript-eslint/parser": "^4.0.1",
-    "create-nexus-type": "^1.3.0",
     "cross-env": "^7.0.2",
     "dotenv-cli": "^4.0.0",
     "eslint": "^7.8.1",

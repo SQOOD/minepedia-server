@@ -18,7 +18,7 @@ export const server = new ApolloServer({
   debug: isDev(),
   cors: {
     credentials: true,
-    origin: '*',
+    origin: true,
   },
   uploads: {
     maxFiles: 6,

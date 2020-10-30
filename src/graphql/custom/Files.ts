@@ -1,5 +1,5 @@
 import { arg, extendType, stringArg } from '@nexus/schema'
-import { minioClient } from '../utils/constants'
+import { minioClient } from '../../utils/constants'
 import { encode } from 'typescript-base64-arraybuffer'
 
 export const fileUpload = extendType({
@@ -9,15 +9,15 @@ export const fileUpload = extendType({
       type: 'File',
       args: {
         files: arg({ type: 'Upload', list: true }),
-        productId: stringArg({ required: true }),
+        productID: stringArg({ required: true }),
       },
-      async resolve(_: any, { files, productId }, {}: any) {
+      async resolve(_: any, { files, productID }, {}: any) {
         let fileList: any = []
 
         await Promise.all(
           files.map(async (file: any) => {
             const { createReadStream, filename, mimetype } = await file
-            const filepath = `${productId}/${filename}`
+            const filepath = `${productID}/${filename}`
 
             if (mimetype == 'image/jpeg') {
               await minioClient.putObject(
@@ -48,14 +48,14 @@ export const fileDisplay = extendType({
     t.list.field('showImages', {
       type: 'String',
       args: {
-        productId: stringArg({ required: true }),
+        productID: stringArg({ required: true }),
       },
-      async resolve(_: any, { productId }, {}: any) {
+      async resolve(_: any, { productID }, {}: any) {
         let pathList: any = []
         let imageList: any = []
         const stream = minioClient.listObjects(
           process.env.MINIO_BUCKET,
-          productId,
+          productID,
           true
         )
 

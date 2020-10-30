@@ -7,7 +7,7 @@
 //   isAuthenticatedUser: rule({ cache: 'contextual' })(
 //     (_parent, _args, ctx: Context) => {
 //       try {
-//         if (ctx.userId === -1) {
+//         if (ctx.userID === -1) {
 //           return handleError(errors.notAuthenticated)
 //         }
 //         return true
@@ -25,7 +25,7 @@
 //               id,
 //             },
 //           })
-//         return ctx?.userId === vendor?.id
+//         return ctx?.userID === vendor?.id
 //       } catch (e) {
 //         return e
 //       }

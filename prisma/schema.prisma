@@ -9,12 +9,46 @@ generator client {
   previewFeatures = ["connectOrCreate", "transactionApi"]
 }
 
+model LogVendor {
+  id                 String    @default(uuid()) @id
+  admin              Admin    @relation(references: [id], fields: [adminID])
+  adminID            String
+  vendor             Vendor @relation(references: [id], fields:[vendorID])
+  vendorID           Int
+  description        String
+  contentStatus      ContentStatus
+  createdAt          DateTime  @default(now())
+}
+
+model LogMerchant {
+  id                 String    @default(uuid()) @id
+  admin              Admin    @relation(references: [id], fields: [adminID])
+  adminID            String
+  merchant           Vendor @relation(references: [id], fields:[merchantID])
+  merchantID         Int
+  description        String
+  contentStatus      ContentStatus
+  createdAt          DateTime  @default(now())
+}
+
+model LogProduct {
+  id                 String    @default(uuid()) @id
+  admin              Admin    @relation(references: [id], fields: [adminID])
+  adminID            String
+  product            Vendor @relation(references: [id], fields:[productID])
+  productID          Int
+  description        String
+  contentStatus      ContentStatus
+  createdAt          DateTime  @default(now())
+}
+
+
 model Product {
   id            Int         @default(autoincrement()) @id
-  productId     String      @default("ID")
+  productID     String      @default("ID")
   name          String
-  profile       Profile     @relation(references: [id], fields: [profileId])
-  profileId     String
+  profile       Profile     @relation(references: [id], fields: [profileID])
+  profileID     String
   unit          String      @default("Unit")
   tkdn          Int         @default(0)
   certificate   Certificate @default(SA)
@@ -23,35 +57,39 @@ model Product {
   minPurchase   Int         @default(0)
   country       String
   description   String
-  createdAt     DateTime    @default(now())
   price         Int?
   customizable  Boolean     @default(false)
   details       Json?
   approved      Boolean     @default(false)
+  log           LogProduct[]
+  createdAt     DateTime    @default(now())
 }
 
 model Profile {
-  id          String         @default(uuid()) @id
+  id          String      @default(uuid()) @id
   name        String
   address     String
   companyType CompanyType
-  phone       String      @default("NaN")
+  phone       String
   geolocation Json?
   province    String
   district    String
-  vendor      Vendor        @relation(references: id, fields: vendorId)
-  vendorId    Int
+  vendor      Vendor?     @relation(references: [id], fields: [vendorID])
+  vendorID    Int?
+  sales       Merchant?   @relation(references: [id], fields: [merchantID])
+  merchantID  Int?
   products    Product[]
 }
 
-model Sales {
+model Merchant {
   id        Int       @default(autoincrement()) @id
   createdAt DateTime  @default(now())
   email     String    @unique
   password  String
   npwp      String
-  approved  Boolean   @default(false)
   profile   Profile?
+  approved  Boolean   @default(false)
+  log       LogMerchant[]
 }
 
 model Vendor {
@@ -60,16 +98,29 @@ model Vendor {
   email     String    @unique
   password  String
   npwp      String
-  approved  Boolean   @default(false)
   profile   Profile?
+  approved  Boolean   @default(false)
+  log       LogVendor[]
 }
 
 model Admin { 
-  id        String @default(uuid()) @id
-  createdAt DateTime @default(now())
-  nik       String @unique
-  password  String
-  role      Role @default(EVALUATOR)
+  id            String @default(uuid()) @id
+  createdAt     DateTime @default(now())
+  nik           String @unique
+  password      String
+  role          Role @default(EVALUATOR)
+  logVendors    LogVendor[]
+  LogMerchant   LogMerchant[]
+  LogProduct    LogProduct[]
+}
+
+enum ContentStatus {
+  PENDING
+  DENIED
+  NEEDFIX
+  ASSIGNED
+  APPROVED
+  NEEDSAPPROVAL
 }
 
 enum Certificate {
