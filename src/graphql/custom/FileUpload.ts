@@ -9,3 +9,10 @@ export const File = objectType({
     t.list.string('files')
   },
 })
+
+export const FileShow = objectType({
+  name: 'FileShow',
+  definition(t) {
+    t.upload('file')
+  },
+})

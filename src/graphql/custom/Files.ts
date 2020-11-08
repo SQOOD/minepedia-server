@@ -1,6 +1,6 @@
 import { arg, extendType, stringArg } from '@nexus/schema'
 import { minioClient } from '../../utils/constants'
-import { encode } from 'typescript-base64-arraybuffer'
+import { Base64 } from 'js-base64'
 
 export const fileUpload = extendType({
   type: 'Mutation',
@@ -9,15 +9,15 @@ export const fileUpload = extendType({
       type: 'File',
       args: {
         files: arg({ type: 'Upload', list: true }),
-        productID: stringArg({ required: true }),
+        id: stringArg({ required: true }),
       },
-      async resolve(_: any, { files, productID }, {}: any) {
+      async resolve(_: any, { files, id }, {}: any) {
         let fileList: any = []
 
         await Promise.all(
           files.map(async (file: any) => {
             const { createReadStream, filename, mimetype } = await file
-            const filepath = `${productID}/${filename}`
+            const filepath = `${id}/${filename}`
 
             if (mimetype == 'image/jpeg') {
               await minioClient.putObject(
@@ -48,14 +48,14 @@ export const fileDisplay = extendType({
     t.list.field('showImages', {
       type: 'String',
       args: {
-        productID: stringArg({ required: true }),
+        id: stringArg({ required: true }),
       },
-      async resolve(_: any, { productID }, {}: any) {
+      async resolve(_: any, { id }, {}: any) {
         let pathList: any = []
         let imageList: any = []
         const stream = minioClient.listObjects(
           process.env.MINIO_BUCKET,
-          productID,
+          id,
           true
         )
 
@@ -88,7 +88,7 @@ export const fileDisplay = extendType({
                 })
 
                 dataStream.on('end', () => {
-                  encode(Buffer.concat(bufferArr))
+                  console.log(Base64.fromUint8Array(bufferArr.toString('utf8')))
                 })
               }
             )

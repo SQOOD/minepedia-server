@@ -107,6 +107,7 @@ model Admin {
   id            String @default(uuid()) @id
   createdAt     DateTime @default(now())
   nik           String @unique
+  name          String?
   password      String
   role          Role @default(EVALUATOR)
   logVendors    LogVendor[]
@@ -117,7 +118,7 @@ model Admin {
 enum ContentStatus {
   PENDING
   DENIED
-  NEEDFIX
+  NEEDSFIX
   ASSIGNED
   APPROVED
   NEEDSAPPROVAL

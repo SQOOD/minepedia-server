@@ -43,19 +43,19 @@ export const user = extendType({
       type: 'AuthPayloadAdmin',
       args: {
         nik: stringArg({ required: true }),
+        name: stringArg({ required: true }),
         password: stringArg({ required: true }),
       },
-      async resolve(_parent, { nik, password }, ctx) {
+      async resolve(_parent, { nik, name, password }, ctx) {
         try {
           const hashedPassword = await hash(password, 10)
           const admin = await ctx.prisma.admin.create({
             data: {
               nik,
+              name,
               password: hashedPassword,
             },
           })
-
-          console.log(admin)
 
           const accessToken = generateAccessAdmin(admin.id)
           return {

@@ -6,6 +6,7 @@ export const Admin = objectType({
     t.model.id()
     t.model.createdAt()
     t.model.nik()
+    t.model.name()
     t.model.password()
     t.model.role()
     t.model.logVendors()
