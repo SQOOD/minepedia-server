@@ -51,50 +51,28 @@ export const fileDisplay = extendType({
         id: stringArg({ required: true }),
       },
       async resolve(_: any, { id }, {}: any) {
-        let pathList: any = []
-        let imageList: any = []
+        let image: any = []
+
+        const address = `${process.env.MINIO_SSL ? 'https://' : 'http://'}${
+          process.env.MINIO_ENDPOINT
+        }:${process.env.MINIO_PORT}/`
         const stream = minioClient.listObjects(
           process.env.MINIO_BUCKET,
           id,
           true
         )
 
+        for await (const obj of stream) {
+          image.push(obj)
+        }
+
         stream.on('error', (err) => {
           console.log(err)
         })
 
-        for await (const obj of stream) {
-          pathList.push(obj)
-        }
+        const path = image.map((x: any) => (x = `${address}${x.name}`))
 
-        await Promise.all(
-          pathList.map(async (obj: any) => {
-            minioClient.getObject(
-              process.env.MINIO_BUCKET,
-              obj.name,
-              (err, dataStream) => {
-                let bufferArr: any = []
-
-                if (err) {
-                  return console.log(err)
-                }
-
-                dataStream.on('error', (err) => {
-                  console.log(err)
-                })
-
-                dataStream.on('data', (chunk) => {
-                  bufferArr.push(chunk)
-                })
-
-                dataStream.on('end', () => {
-                  console.log(Base64.fromUint8Array(bufferArr.toString('utf8')))
-                })
-              }
-            )
-          })
-        ).then((x) => console.log(x))
-        return imageList
+        return path
       },
     })
   },
