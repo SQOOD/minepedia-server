@@ -23,12 +23,12 @@ export const fileUpload = extendType({
               4
             )}-${Math.random().toString(20).substr(2, 19)}.jpg`
 
-            // const filepath = `${id}/${renamedfile}`
+            const filepath = `${id}/${renamedfile}`
 
             if (mimetype == 'image/jpeg') {
               await minioClient.putObject(
                 process.env.MINIO_BUCKET,
-                renamedfile,
+                filepath,
                 createReadStream(),
                 (err) => {
                   if (err) return console.log(err)

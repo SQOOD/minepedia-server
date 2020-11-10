@@ -11,8 +11,8 @@ generator client {
 
 model LogVendor {
   id                 String    @default(uuid()) @id
-  admin              Admin    @relation(references: [id], fields: [adminID])
-  adminID            String
+  admin              Admin?    @relation(references: [id], fields: [adminID])
+  adminID            String?
   vendor             Vendor @relation(references: [id], fields:[vendorID])
   vendorID           Int
   description        String
@@ -22,8 +22,8 @@ model LogVendor {
 
 model LogMerchant {
   id                 String    @default(uuid()) @id
-  admin              Admin    @relation(references: [id], fields: [adminID])
-  adminID            String
+  admin              Admin?    @relation(references: [id], fields: [adminID])
+  adminID            String?
   merchant           Vendor @relation(references: [id], fields:[merchantID])
   merchantID         Int
   description        String
@@ -31,10 +31,21 @@ model LogMerchant {
   createdAt          DateTime  @default(now())
 }
 
+model LogMiningCompany {
+  id                 String    @default(uuid()) @id
+  admin              Admin?    @relation(references: [id], fields: [adminID])
+  adminID            String?
+  miningCompany      Vendor @relation(references: [id], fields:[miningCompanyID])
+  miningCompanyID    Int
+  description        String
+  contentStatus      ContentStatus
+  createdAt          DateTime  @default(now())
+}
+
 model LogProduct {
   id                 String    @default(uuid()) @id
-  admin              Admin    @relation(references: [id], fields: [adminID])
-  adminID            String
+  admin              Admin?    @relation(references: [id], fields: [adminID])
+  adminID            String?
   product            Vendor @relation(references: [id], fields:[productID])
   productID          Int
   description        String
@@ -113,6 +124,17 @@ model Admin {
   logVendors    LogVendor[]
   LogMerchant   LogMerchant[]
   LogProduct    LogProduct[]
+}
+
+model MiningCompany {
+  id        Int       @default(autoincrement()) @id
+  createdAt DateTime  @default(now())
+  email     String    @unique
+  password  String
+  npwp      String
+  profile   Profile?
+  approved  Boolean   @default(false)
+  log       LogMiningCompany[]
 }
 
 enum ContentStatus {
