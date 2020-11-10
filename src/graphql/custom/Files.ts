@@ -17,7 +17,13 @@ export const fileUpload = extendType({
         await Promise.all(
           files.map(async (file: any) => {
             const { createReadStream, filename, mimetype } = await file
-            const filepath = `${id}/${filename}`
+
+            const renamedfile = `${id}-${filename.substring(
+              1,
+              4
+            )}-${Math.random().toString(20).substr(2, 19)}.jpg`
+
+            const filepath = `${id}/${renamedfile}`
 
             if (mimetype == 'image/jpeg') {
               await minioClient.putObject(
