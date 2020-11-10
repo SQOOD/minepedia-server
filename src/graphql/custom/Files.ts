@@ -15,13 +15,13 @@ export const fileUpload = extendType({
         let fileList: any = []
 
         await Promise.all(
-          files.map(async (file: any) => {
+          files.map(async (file: any, index) => {
             const { createReadStream, filename, mimetype } = await file
 
-            const renamedfile = `${id}-${filename.substring(
+            const renamedfile = `${id.substring(1, 4)}-${filename.substring(
               1,
               4
-            )}-${Math.random().toString(20).substr(2, 19)}.jpg`
+            )}-${Math.random().toString(20).substr(2, 19)}-${index}.jpg`
 
             const filepath = `${id}/${renamedfile}`
 
