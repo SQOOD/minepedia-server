@@ -59,9 +59,10 @@ export const fileDisplay = extendType({
       async resolve(_: any, { id }, {}: any) {
         let image: any = []
 
-        const address = `${process.env.MINIO_SSL ? 'https://' : 'http://'}${
-          process.env.MINIO_ENDPOINT
-        }:${process.env.MINIO_PORT}/`
+        // const address = `${process.env.MINIO_SSL ? 'https://' : 'http://'}${
+        //   process.env.MINIO_ENDPOINT
+        // }:${process.env.MINIO_PORT}/`
+
         const stream = minioClient.listObjects(
           process.env.MINIO_BUCKET,
           id,
@@ -76,7 +77,7 @@ export const fileDisplay = extendType({
           console.log(err)
         })
 
-        const path = image.map((x: any) => (x = `${address}${x.name}`))
+        const path = image.map((x: any) => (x = x.name))
 
         return path
       },
