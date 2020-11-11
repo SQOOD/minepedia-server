@@ -11,8 +11,6 @@ export const LogProduct = objectType({
     t.model.description()
     t.model.contentStatus()
     t.model.createdAt()
-    t.model.Product()
-    t.model.productId()
   },
 })
 

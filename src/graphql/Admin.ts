@@ -10,8 +10,9 @@ export const Admin = objectType({
     t.model.password()
     t.model.role()
     t.model.logVendors()
-    t.model.LogMerchant()
-    t.model.LogProduct()
+    t.model.logMerchant()
+    t.model.logProduct()
+    t.model.logMiningCompany()
   },
 })
 

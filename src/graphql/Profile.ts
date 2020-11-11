@@ -13,9 +13,10 @@ export const Profile = objectType({
     t.model.district()
     t.model.vendor()
     t.model.vendorID()
-    t.model.sales()
+    t.model.merchant()
     t.model.merchantID()
     t.model.products()
+    t.model.MiningCompany()
   },
 })
 

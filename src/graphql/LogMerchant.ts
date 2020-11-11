@@ -11,8 +11,6 @@ export const LogMerchant = objectType({
     t.model.description()
     t.model.contentStatus()
     t.model.createdAt()
-    t.model.Merchant()
-    t.model.merchantId()
   },
 })
 

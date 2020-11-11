@@ -24,7 +24,7 @@ model LogMerchant {
   id                 String    @default(uuid()) @id
   admin              Admin?    @relation(references: [id], fields: [adminID])
   adminID            String?
-  merchant           Vendor @relation(references: [id], fields:[merchantID])
+  merchant           Merchant @relation(references: [id], fields:[merchantID])
   merchantID         Int
   description        String
   contentStatus      ContentStatus
@@ -35,7 +35,7 @@ model LogMiningCompany {
   id                 String    @default(uuid()) @id
   admin              Admin?    @relation(references: [id], fields: [adminID])
   adminID            String?
-  miningCompany      Vendor @relation(references: [id], fields:[miningCompanyID])
+  miningCompany      MiningCompany @relation(references: [id], fields:[miningCompanyID])
   miningCompanyID    Int
   description        String
   contentStatus      ContentStatus
@@ -46,7 +46,7 @@ model LogProduct {
   id                 String    @default(uuid()) @id
   admin              Admin?    @relation(references: [id], fields: [adminID])
   adminID            String?
-  product            Vendor @relation(references: [id], fields:[productID])
+  product            Product @relation(references: [id], fields:[productID])
   productID          Int
   description        String
   contentStatus      ContentStatus
@@ -87,7 +87,7 @@ model Profile {
   district    String
   vendor      Vendor?     @relation(references: [id], fields: [vendorID])
   vendorID    Int?
-  sales       Merchant?   @relation(references: [id], fields: [merchantID])
+  merchant    Merchant?   @relation(references: [id], fields: [merchantID])
   merchantID  Int?
   products    Product[]
 }
@@ -115,15 +115,17 @@ model Vendor {
 }
 
 model Admin { 
-  id            String @default(uuid()) @id
-  createdAt     DateTime @default(now())
-  nik           String @unique
-  name          String?
-  password      String
-  role          Role @default(EVALUATOR)
-  logVendors    LogVendor[]
-  LogMerchant   LogMerchant[]
-  LogProduct    LogProduct[]
+  id                String @default(uuid()) @id
+  createdAt         DateTime @default(now())
+  nik               String @unique
+  name              String?
+  password          String
+  role              Role @default(EVALUATOR)
+  logVendors        LogVendor[]
+  logMerchant       LogMerchant[]
+  logProduct        LogProduct[]
+  logMiningCompany  LogMiningCompany[]
+
 }
 
 model MiningCompany {

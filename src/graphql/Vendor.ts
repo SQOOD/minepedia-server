@@ -11,8 +11,6 @@ export const Vendor = objectType({
     t.model.profile()
     t.model.approved()
     t.model.log()
-    t.model.LogMerchant()
-    t.model.LogProduct()
   },
 })
 
