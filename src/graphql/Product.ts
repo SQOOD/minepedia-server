@@ -13,6 +13,7 @@ export const Product = objectType({
     t.model.certificate()
     t.model.category()
     t.model.hscode()
+    t.model.imageURL()
     t.model.minPurchase()
     t.model.country()
     t.model.description()
