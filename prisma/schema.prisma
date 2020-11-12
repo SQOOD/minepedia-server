@@ -65,6 +65,7 @@ model Product {
   certificate   Certificate @default(SA)
   category      Category
   hscode        String
+  imageURL      String[]
   minPurchase   Int         @default(0)
   country       String
   description   String
