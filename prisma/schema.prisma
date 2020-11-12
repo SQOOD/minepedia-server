@@ -85,6 +85,7 @@ model Profile {
   phone       String
   geolocation Json?
   province    String
+  imageURL    String[]
   district    String
   vendor      Vendor?     @relation(references: [id], fields: [vendorID])
   vendorID    Int?

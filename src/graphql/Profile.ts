@@ -12,6 +12,7 @@ export const Profile = objectType({
     t.model.province()
     t.model.district()
     t.model.vendor()
+    t.model.imageURL()
     t.model.vendorID()
     t.model.merchant()
     t.model.merchantID()
