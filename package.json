@@ -24,6 +24,7 @@
     "@types/image-to-base64": "^2.1.0",
     "@types/jwt-decode": "^2.2.1",
     "apollo-server": "^2.13.0",
+    "axios": "^0.21.0",
     "bcrypt": "5.0.0",
     "bcryptjs": "^2.4.3",
     "dotenv": "^8.1.0",

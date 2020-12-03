@@ -1,6 +1,5 @@
 import { arg, extendType, stringArg } from '@nexus/schema'
 import { minioClient } from '../../utils/constants'
-import { Base64 } from 'js-base64'
 
 export const fileUpload = extendType({
   type: 'Mutation',

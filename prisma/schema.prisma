@@ -6,7 +6,6 @@ datasource db {
 generator client {
   provider        = "prisma-client-js"
   binaryTargets   = ["native", "linux-musl"]
-  previewFeatures = ["connectOrCreate", "transactionApi"]
 }
 
 model LogVendor {
@@ -195,4 +194,5 @@ enum Category {
   R 
   S
   T
+  U
 }
