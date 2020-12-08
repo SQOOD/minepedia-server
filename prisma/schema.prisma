@@ -153,6 +153,7 @@ enum ContentStatus {
 
 enum Certificate {
   SA
+  C
   SC
   SI
 }
