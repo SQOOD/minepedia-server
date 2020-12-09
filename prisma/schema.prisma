@@ -60,7 +60,7 @@ model Product {
   profile       Profile     @relation(references: [id], fields: [profileID])
   profileID     String
   unit          String      @default("Unit")
-  tkdn          Int         @default(0)
+  tkdn          Float         @default(0)
   certificate   Certificate @default(SA)
   category      Category
   hscode        String
