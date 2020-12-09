@@ -5,7 +5,7 @@ export const CertificatePayload = objectType({
   definition(t) {
     t.string('name')
     t.string('tkdn')
-    t.string('description')
+    t.string('desc')
     t.string('hscode')
   },
 })
