@@ -32,7 +32,7 @@ export const Certificate = extendType({
                   x.tipe.length > 2 ? `- ${x.tipe}` : ''
                 } ${x.merk.length > 2 ? `- ${x.merk}` : ''}`,
                 tkdn: x.nilai,
-                description: x.uraian_produk,
+                desc: x.uraian_produk,
                 hscode: x.hs,
               }
             })
